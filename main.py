@@ -86,6 +86,7 @@ def front_prop(data, w0, b0, w1, b1):
 
     lay1 = mat_mul(w1, lay0)
     lay1 = mat_add(lay1, b1)
+    lay1 = relu(lay1)
     #softmax here
 
     return lay0
