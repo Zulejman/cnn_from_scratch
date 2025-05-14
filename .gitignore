@@ -1,3 +1,4 @@
 data/
 data.zip
 .flake8
+cnn_tmux.sh
