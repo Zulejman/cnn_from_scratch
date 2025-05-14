@@ -1,6 +1,7 @@
 import struct
 import numpy as np
 import random
+e = 2.71828
 
 def load_images(filename):
     with open(filename, 'rb') as f:
@@ -20,14 +21,34 @@ def load_labels(filename):
 in_arr = [random.randint(0, 255) for x in range(0, 10)]
 print(in_arr)
 
-def relu(in_arr):
-    out_arr = []
-    for i in range(len(in_arr)):
-        if in_arr[i][0] <= 0:
-            out_arr.append([0])
+def relu(in_vec):
+    out_vec = []
+    for i in range(len(in_vec)):
+        if in_vec[i][0] <= 0:
+            out_vec.append([0])
         else:
-            out_arr.append([in_arr[i][0]])
-    return out_arr
+            out_vec.append([in_vec[i][0]])
+    return out_vec
+
+def soft_max(in_vec):
+    out_vec = []
+    vec_e = []
+    vec_sum = 0
+    vec_len = len(in_vec)
+
+    max_val = max(in_vec[i][0] for i in range(vec_len))
+
+    for i in range(vec_len):
+        shifted_val = in_vec[i][0] - max_val
+        #vec_e_cal = e**in_vec[i][0]
+        vec_e_cal = e**shifted_val
+        vec_e.append(vec_e_cal)
+        vec_sum += vec_e_cal
+
+    for i in range(vec_len):
+        out_vec.append([vec_e[i] / vec_sum])
+
+    return out_vec
 
 def mat_mul(mat_a, mat_b):
 
@@ -86,11 +107,11 @@ def front_prop(data, w0, b0, w1, b1):
 
     lay1 = mat_mul(w1, lay0)
     lay1 = mat_add(lay1, b1)
-    lay1 = relu(lay1)
-    #softmax here
+    print(lay1)
+    lay1 = soft_max(lay1)
+    print(lay1)
 
     return lay0
-
 
 def main():
 
