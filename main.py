@@ -40,7 +40,6 @@ def soft_max(in_vec):
 
     for i in range(vec_len):
         shifted_val = in_vec[i][0] - max_val
-        #vec_e_cal = e**in_vec[i][0]
         vec_e_cal = e**shifted_val
         vec_e.append(vec_e_cal)
         vec_sum += vec_e_cal
@@ -97,6 +96,16 @@ def wb_init(in_num, w_num):
 
     return w, b
 
+def mse(front_out, label):
+
+    return None
+
+def one_hot(Y):
+
+    one_hot_Y = [[0] for _ in range(10)]
+    one_hot_Y[Y][0] = 1
+
+    return one_hot_Y
 
 def front_prop(data, w0, b0, w1, b1):
 
@@ -111,13 +120,18 @@ def front_prop(data, w0, b0, w1, b1):
     lay1 = soft_max(lay1)
     print(lay1)
 
-    return lay0
+    return lay1
+
+def back_prop():
+
+    return None
 
 def main():
 
     w0, b0 = wb_init(784, 10)
     w1, b1 = wb_init(10, 10)
     data = [[random.randint(0, 255)] for x in range(784)]
+
     front_prop(data, w0, b0, w1, b1)
 
     return 0
